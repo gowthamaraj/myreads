@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MyReads
+In the MyReads project, I have create a bookshelf app that allows one to select and categorize books they have read, are currently reading, or want to read. The project emphasizes using React to build the application and provides an API server and client library that you will use to persist information as you interact with the application.
 
 ## Available Scripts
 
@@ -12,11 +13,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br />
@@ -27,42 +23,50 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Backend Server
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To simplify the development process, I used the Udacity API. The source file [`BooksAPI.js`](src/BooksAPI.js) contains the methods needed to perform necessary operations on the backend:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* [`getAll`](#getall)
+* [`update`](#update)
+* [`search`](#search)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### `getAll`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Method Signature:
 
-## Learn More
+```js
+getAll()
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Returns a Promise which resolves to a JSON object containing a collection of book objects.
+* This collection represents the books currently in the bookshelves in your app.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `update`
 
-### Code Splitting
+Method Signature:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```js
+update(book, shelf)
+```
 
-### Analyzing the Bundle Size
+* book: `<Object>` containing at minimum an `id` attribute
+* shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]  
+* Returns a Promise which resolves to a JSON object containing the response data of the POST request
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### `search`
 
-### Making a Progressive Web App
+Method Signature:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```js
+search(query)
+```
 
-### Advanced Configuration
+* query: `<String>`
+* Returns a Promise which resolves to a JSON object containing a collection of a maximum of 20 book objects.
+* These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## ScreenShots
+![](screenshot/ss.PNG)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
