@@ -10,7 +10,6 @@ class Search extends Component {
         this.setState({
             books : []
           });
-          console.log(e.target.value)
         BooksAPI.search(e.target.value).then((data)=>{
             let items =[]
             data.forEach((data)=>{
@@ -34,7 +33,6 @@ class Search extends Component {
     update = (e) =>{
         const data = JSON.parse(e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("data"));
         BooksAPI.update(data,e.target.value).then((data)=>{
-            console.log(data);
             this.props.updateAPI();
         });
     }
@@ -59,7 +57,7 @@ class Search extends Component {
                     <div className="book-top">
                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${item.image})` }}></div>
                       <div className="book-shelf-changer">
-                        <select onChange={this.update}>
+                        <select onChange={this.update} defaultValue="move">
                           <option value="move" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
