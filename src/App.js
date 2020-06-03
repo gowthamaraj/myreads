@@ -1,5 +1,4 @@
 import React from 'react';
-// import * as BooksAPI from './BooksAPI'
 import './App.css';
 import BookApp from './bookapp';
 import { Route, Switch } from 'react-router-dom';
@@ -46,7 +45,7 @@ class BooksApp extends React.Component {
       image, title, author, key
     };
     BooksAPI.update(item,target).then((data)=>{
-      console.log(data);
+      // console.log(data);
   });
     if (target !== shelf) {
       if (target === "none") {
@@ -70,7 +69,7 @@ class BooksApp extends React.Component {
     return (
       <Switch>
         <Route path="/" render={() => <BookApp currentlyReading={this.state.currentlyReading} wantToRead={this.state.wantToRead} read={this.state.read} handleChange={this.handleChange} />} exact />
-        <Route path="/search" render={() => <Search updateAPI={this.updateAPI}/>} />
+        <Route path="/search" render={() => <Search updateAPI={this.updateAPI} currentlyReading={this.state.currentlyReading} wantToRead={this.state.wantToRead} read={this.state.read}/>} />
       </Switch>
     )
   }
