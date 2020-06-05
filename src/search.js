@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI  from './BooksAPI';
+import Book from './book';
 class Search extends Component {
 
     state ={
@@ -44,9 +45,8 @@ class Search extends Component {
               })
         })
     }
-    update = (e) =>{
-        const data = JSON.parse(e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("data"));
-        BooksAPI.update(data,e.target.value).then((data)=>{
+    update = (data) =>{
+        BooksAPI.update(data,data.target).then((data)=>{
             this.props.updateAPI();
         });
     }
@@ -64,43 +64,24 @@ class Search extends Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                     {this.state.query!==''&&this.state.books.map((item) => {
-                        let data= {key:item.key,image:item.image,title:item.title,author:item.author,shelf:"new"};
-                        data = JSON.stringify(data);
-                        let shelf = false;
+                        let data= {key:item.key,image:item.image,title:item.title,author:item.author,shelf:"none"};
                         this.props.currentlyReading.forEach((book)=>{
                           if(book.key === item.key){
-                            shelf = "currentlyReading";
+                            data.shelf = "currentlyReading";
                           }
                         });
                         this.props.wantToRead.forEach((book)=>{
                           if(book.key === item.key){
-                            shelf = "wantToRead";
+                            data.shelf = "wantToRead";
                           }
                         });
                         this.props.read.forEach((book)=>{
                           if(book.key === item.key){
-                            shelf = "read";
+                            data.shelf = "read";
                           }
                         });
               return (
-                <li key={Math.random()} data={data}>
-                  <div className="book">
-                    <div className="book-top">
-                      <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${item.image})` }}></div>
-                      <div className="book-shelf-changer">
-                        <select onChange={this.update} defaultValue={shelf?shelf:"none"}>
-                          <option value="move" disabled>Move to...</option>
-                          <option value="currentlyReading">Currently Reading</option>
-                          <option value="wantToRead">Want to Read</option>
-                          <option value="read">Read</option>
-                          <option value="none">None</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="book-title">{item.title}</div>
-                    <div className="book-authors">{item.author}</div>
-                  </div>
-                </li>
+                <Book key={data.key} data={data} handleChange={this.update}/>
               )
             })}
                     </ol>

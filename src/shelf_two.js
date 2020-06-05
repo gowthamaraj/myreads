@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-
+import Book from './book';
 class Shelf extends Component{
 
     render(){
@@ -10,26 +10,8 @@ class Shelf extends Component{
                     <ol className="books-grid">
                     {this.props.wantToRead.map((item) => {
                         let data= {key:item.key,image:item.image,title:item.title,author:item.author,shelf:"wantToRead"};
-                        data = JSON.stringify(data);
               return (
-                <li key={item.key} data={data}>
-                  <div className="book">
-                    <div className="book-top">
-                      <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${item.image})` }}></div>
-                      <div className="book-shelf-changer">
-                        <select onChange={this.props.handleChange} defaultValue="wantToRead">
-                          <option value="move" disabled>Move to...</option>
-                          <option value="currentlyReading">Currently Reading</option>
-                          <option value="wantToRead">Want to Read</option>
-                          <option value="read">Read</option>
-                          <option value="none">None</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="book-title">{item.title}</div>
-                    <div className="book-authors">{item.author}</div>
-                  </div>
-                </li>
+                <Book key={data.key} data={data} handleChange={this.props.handleChange}/>
               )
             })}
                     </ol>

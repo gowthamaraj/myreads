@@ -37,10 +37,8 @@ class BooksApp extends React.Component {
   componentDidMount(){
     this.updateAPI();
   }
-  handleChange = (e) => {
-    const data = JSON.parse(e.target.parentElement.parentElement.parentElement.parentElement.getAttribute("data"));
-    const { image, title, author, key, shelf } = data;
-    const target = e.target.value;
+  handleChange = (data_book) => {
+    const { image, title, author, key, shelf,target } = data_book;
     const item = {
       image, title, author, key
     };
